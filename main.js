@@ -12,14 +12,14 @@ function createWindow () {
     webPreferences: {
       plugins: true,
       enableRemoteModule: true,
-      nodeIntegration: false,
+      nodeIntegration: true,
       webSecurity: false,
       webviewTag: true,
       allowRunningInsecureContent: true,
     }
   })
 
-  mainWindow.setContentProtection(true)
+  mainWindow.setContentProtection(false)
 
   // and load the index.html of the app.
   mainWindow.loadURL('https://exams.smartclassapp.in/')
@@ -43,6 +43,8 @@ function createWindow () {
 
   const mainMenu = Menu.buildFromTemplate(mainMenuTemplate)
   Menu.setApplicationMenu(mainMenu)
+  
+  
 }
 
 // This method will be called when Electron has finished
@@ -65,6 +67,15 @@ app.whenReady().then(() => {
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
+  // Using require
+const { default: installExtension, REACT_DEVELOPER_TOOLS } = require('electron-devtools-installer');
+
+installExtension(REACT_DEVELOPER_TOOLS).then((name) => {
+    console.log(`Added Extension:  ${name}`);
+})
+.catch((err) => {
+    console.log('An error occurred: ', err);
+});
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common
