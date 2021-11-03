@@ -1,4 +1,3 @@
-#cradit @Shinchan7222
 
 from . import *
 
